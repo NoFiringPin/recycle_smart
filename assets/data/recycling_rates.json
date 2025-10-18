@@ -1,0 +1,67 @@
+[
+  {
+    "materialType": "Aluminum",
+    "containersPerPound": 29.7,
+    "minimumPerPoundRate": 1.65
+  },
+  {
+    "materialType": "Glass",
+    "containersPerPound": 1.87,
+    "minimumPerPoundRate": 0.102
+  },
+  {
+    "materialType": "#1 PET (Polyethylene Terephthalate)",
+    "containersPerPound": 27.0,
+    "minimumPerPoundRate": 1.47
+  },
+  {
+    "materialType": "#2 HDPE (High Density Polyethylene)",
+    "containersPerPound": 8.4,
+    "minimumPerPoundRate": 0.63
+  },
+  {
+    "materialType": "#3 PVC (Polyvinyl Chloride)",
+    "containersPerPound": 9.7,
+    "minimumPerPoundRate": 0.48
+  },
+  {
+    "materialType": "#4 LDPE (Low Density Polyethylene)",
+    "containersPerPound": 39.5,
+    "minimumPerPoundRate": 1.98
+  },
+  {
+    "materialType": "#5 PP (Polypropylene)",
+    "containersPerPound": 10.9,
+    "minimumPerPoundRate": 0.55
+  },
+  {
+    "materialType": "#6 PS (Polystyrene)",
+    "containersPerPound": 109.5,
+    "minimumPerPoundRate": 5.47
+  },
+  {
+    "materialType": "#7 Other Plastic",
+    "containersPerPound": 3.1,
+    "minimumPerPoundRate": 0.31
+  },
+  {
+    "materialType": "Bimetal",
+    "containersPerPound": 8.2,
+    "minimumPerPoundRate": 0.41
+  },
+  {
+    "materialType": "WDS-Multi-Layer Pouch*",
+    "containersPerPound": 33.0,
+    "minimumPerPoundRate": 8.25
+  },
+  {
+    "materialType": "WDS-Bag-in-Box",
+    "containersPerPound": 1.66,
+    "minimumPerPoundRate": 0.41
+  },
+  {
+    "materialType": "WDS-Paperboard Carton",
+    "containersPerPound": 15.18,
+    "minimumPerPoundRate": 3.79
+  }
+]
