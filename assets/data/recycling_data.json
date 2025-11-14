@@ -1,32 +1,32 @@
 [
   {
     "name": "Plastic",
-    "percentage": 32.0,
-    "weightLbs": 14.5,
+    "percentage": 0.0,
+    "weightLbs": 0.0,
     "color": "#3366CC"
   },
   {
     "name": "Paper",
-    "percentage": 28.0,
-    "weightLbs": 12.6,
+    "percentage": 0.0,
+    "weightLbs": 0.0,
     "color": "#36A373"
   },
   {
     "name": "Glass",
-    "percentage": 18.0,
-    "weightLbs": 8.1,
+    "percentage": 0.0,
+    "weightLbs": 0.0,
     "color": "#FFA726"
   },
   {
     "name": "Metal",
-    "percentage": 12.0,
-    "weightLbs": 5.4,
+    "percentage": 0.0,
+    "weightLbs": 0.0,
     "color": "#5A6978"
   },
   {
     "name": "Trash",
-    "percentage": 10.0,
-    "weightLbs": 4.5,
+    "percentage": 0.0,
+    "weightLbs": 0.0,
     "color": "#E53935"
   }
 ]

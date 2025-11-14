@@ -40,11 +40,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text('No data available.'));
           }
 
-          final materials = snapshot.data!;
+          // MODIFIED: Always build content.
+          // Pass an empty list if data is null or empty.
+          // This ensures the dashboard structure is always visible.
+          final materials = snapshot.data ?? <MaterialData>[];
           return _buildContent(materials);
         },
       ),
@@ -52,6 +53,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Widget _buildContent(List<MaterialData> materials) {
+    // These will correctly be 0.0 if the materials list is empty
     double totalValue = materials.fold(0.0, (sum, item) => sum + item.value);
     double totalWeight = materials.fold(0.0, (sum, item) => sum + item.weightLbs);
 
@@ -64,11 +66,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
             _buildStatusCard(),
             const SizedBox(height: 24),
             _buildSectionTitle('Material Breakdown'),
+            // This will now receive an empty list, showing an empty chart
             _buildMaterialBreakdownCard(materials),
             const SizedBox(height: 24),
+            // This will correctly show $0.00 and 0.0 lbs
             _buildEstimatedValueCard(totalValue, totalWeight),
             const SizedBox(height: 24),
             _buildSectionTitle('Material Details'),
+            // This will now receive an empty list, showing no details
             _buildMaterialDetailsList(materials),
             const SizedBox(height: 24),
             _buildEnvironmentalImpactCard(),
@@ -109,6 +114,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     borderData: FlBorderData(show: false),
                     sectionsSpace: 2,
                     centerSpaceRadius: 30,
+                    // This will be an empty list if materials is empty
                     sections: _buildPieChartSections(materials),
                   ),
                 ),
@@ -117,6 +123,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             const SizedBox(width: 20),
             Expanded(
               flex: 1,
+              // This will be an empty column if materials is empty
               child: _buildLegend(materials),
             ),
           ],
@@ -129,6 +136,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
+      // The .map will produce nothing if the list is empty
       children: materials.map((material) {
         return _buildLegendItem(material.color, '${material.name} (${material.percentage.toStringAsFixed(0)}%)');
       }).toList(),
@@ -158,6 +166,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   List<PieChartSectionData> _buildPieChartSections(List<MaterialData> materials) {
+    // This will generate an empty list if materials.length is 0
     return List.generate(materials.length, (i) {
       final isTouched = (i == touchedIndex);
       final double radius = isTouched ? 60.0 : 50.0;
@@ -208,10 +217,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ],
           ),
           const SizedBox(height: 8),
-          const Text('84%', style: TextStyle(color: Colors.white, fontSize: 48, fontWeight: FontWeight.bold)),
+          // Zeroed out percentage
+          const Text('0%', style: TextStyle(color: Colors.white, fontSize: 48, fontWeight: FontWeight.bold)),
           const Text('Sorting Score', style: TextStyle(color: Colors.white70, fontSize: 16)),
           const SizedBox(height: 4),
-          const Text('Great Job! Keep Improving', style: TextStyle(color: Colors.white, fontSize: 14)),
+          // Changed placeholder text
+          const Text('Awaiting data...', style: TextStyle(color: Colors.white, fontSize: 14)),
         ],
       ),
     );
@@ -232,9 +243,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
               children: [
                 const Text('Estimated Value', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black87)),
                 const SizedBox(height: 4),
+                // This will correctly show 0.0 lbs if totalWeight is 0
                 Text('From ${totalWeight.toStringAsFixed(1)} lbs of recyclables', style: const TextStyle(fontSize: 12, color: Colors.black54)),
               ],
             ),
+            // This will correctly show $0.00 if totalValue is 0
             Text('\$${totalValue.toStringAsFixed(2)}', style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFF2E7D32))),
           ],
         ),
@@ -246,6 +259,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     final valuableMaterials = materials.where((m) => m.name != "Trash").toList();
 
     return Column(
+      // The .map will produce nothing if the list is empty
       children: valuableMaterials.map((material) {
         return Padding(
           padding: const EdgeInsets.only(bottom: 8.0),
@@ -306,16 +320,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                _ImpactStat(value: '32 lbs', label: 'CO₂ Saved'),
-                _ImpactStat(value: '156 gal', label: 'Water Saved'),
+                // Zeroed out values
+                _ImpactStat(value: '0 lbs', label: 'CO₂ Saved'),
+                _ImpactStat(value: '0 gal', label: 'Water Saved'),
               ],
             ),
             SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                _ImpactStat(value: '0.8 kWh', label: 'Energy Saved'),
-                _ImpactStat(value: '2.1 trees', label: 'Equivalent'),
+                // Zeroed out values
+                _ImpactStat(value: '0.0 kWh', label: 'Energy Saved'),
+                _ImpactStat(value: '0.0 trees', label: 'Equivalent'),
               ],
             )
           ],
@@ -395,4 +411,3 @@ class _ImpactStat extends StatelessWidget {
     );
   }
 }
-
